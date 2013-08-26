@@ -1,0 +1,73 @@
+﻿<Window x:Class="ConsoleControlSample.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:consoleControl="clr-namespace:ConsoleControl.WPF;assembly=ConsoleControl.WPF"
+        xmlns:local="clr-namespace:ConsoleControlSample.WPF"
+        xmlns:apexConverters="clr-namespace:Apex.Converters;assembly=Apex"
+        Title="Console Control WPF Sample" Height="400" Width="600">
+    
+    <!-- The view model. -->
+    <Window.DataContext>
+        <local:MainViewModel x:Name="viewModel" />
+    </Window.DataContext>
+    
+    <!-- Resources.-->
+    <Window.Resources>
+        <apexConverters:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
+    </Window.Resources>
+    <Grid>
+        <DockPanel>
+            
+            <!-- The main toolbar. -->
+            <ToolBarTray 
+                DockPanel.Dock="Top">
+                <ToolBar>
+                    <Button 
+                        Command="{Binding StartCommandPromptCommand}" 
+                        IsEnabled="{Binding IsProcessRunning, ElementName=consoleControl, 
+                        Converter={StaticResource InvertedBooleanConverter}}">
+                        <Image Source="/ConsoleControlSample.WPF;component/Resources/ConsoleControl.png"
+                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
+                    </Button>
+                    <Separator />
+                    <Button Command="{Binding StartNewProcessCommand}"
+                        IsEnabled="{Binding IsProcessRunning, ElementName=consoleControl, 
+                        Converter={StaticResource InvertedBooleanConverter}}">
+                        <Image Source="/ConsoleControlSample.WPF;component/Resources/Play.png" 
+                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
+                    </Button>
+                    <Button Command="{Binding StopProcessCommand}"
+                        IsEnabled="{Binding IsProcessRunning, ElementName=consoleControl, 
+                        Converter={StaticResource InvertedBooleanConverter}, ConverterParameter=Invert}">
+                        <Image Source="/ConsoleControlSample.WPF;component/Resources/Stop.png"
+                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16"  />
+                    </Button>
+                    <Separator />
+                    <ToggleButton IsChecked="{Binding ShowDiagnostics, ElementName=consoleControl}">
+                        <Image Source="/ConsoleControlSample.WPF;component/Resources/Information.png"
+                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16"  />
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{Binding IsInputEnabled, ElementName=consoleControl}">
+                        <Image Source="/ConsoleControlSample.WPF;component/Resources/Control_TextBox.png" 
+                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{Binding EnableKeyboardCommands}">
+                        <Image Source="/ConsoleControlSample.WPF;component/Resources/GotoShortcuts.png" 
+                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
+                    </ToggleButton>
+                    <Button Command="{Binding ClearOutputCommand}">
+                        <Image Source="/ConsoleControlSample.WPF;component/Resources/Delete.png" 
+                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+            
+            <!-- The Status Bar. -->
+            <StatusBar DockPanel.Dock="Bottom">
+                <TextBlock Text="Console State:" />
+            </StatusBar>
+        <consoleControl:ConsoleControl 
+            x:Name="consoleControl" />
+        </DockPanel>
+    </Grid>
+</Window>

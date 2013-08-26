@@ -1,0 +1,22 @@
+Potential improvements
+
+Ctrl-C
+http://msdn.microsoft.com/en-us/library/windows/desktop/ms683155(v=vs.85).aspx
+
+Handle console events
+http://msdn.microsoft.com/en-us/library/windows/desktop/ms686016(v=vs.85).aspx
+
+Respect console foreground and background.
+http://www.codeproject.com/Articles/335909/Embedding-a-Console-in-a-C-Application?msg=4496572
+
+Version 1.1
+===========
+
+WPF Control
+* The FontSize can be specified.
+* The Background can be specified.
+* The FontFamily can be specified.
+
+WinForms Control
+* The Font can be specified.
+* The BackColor can be specified.

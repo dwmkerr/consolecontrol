@@ -101,7 +101,9 @@ namespace ConsoleControl
             {
                 WriteOutput(Environment.NewLine + processInterace.ProcessFileName + " exited.", Color.FromArgb(255, 0, 255, 0));
             }
-
+            
+            if (!this.IsHandleCreated)
+                return;
             //  Read only again.
             Invoke((Action)(() =>
             {
@@ -193,6 +195,9 @@ namespace ConsoleControl
         {
             if (string.IsNullOrEmpty(lastInput) == false && 
                 (output == lastInput || output.Replace("\r\n", "") == lastInput))
+                return;
+                
+            if (!this.IsHandleCreated)
                 return;
 
             Invoke((Action)(() =>

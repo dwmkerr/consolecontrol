@@ -44,6 +44,7 @@
       this.richTextBoxConsole.Size = new System.Drawing.Size(150, 150);
       this.richTextBoxConsole.TabIndex = 0;
       this.richTextBoxConsole.Text = "";
+      this.richTextBoxConsole.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBoxConsole_LinkClicked);
       // 
       // ConsoleControl
       // 

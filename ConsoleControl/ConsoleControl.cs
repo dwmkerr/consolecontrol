@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ConsoleControlAPI;
+using System.Diagnostics;
 
 namespace ConsoleControl
 {
@@ -185,7 +186,7 @@ namespace ConsoleControl
                 WriteInput(input, Color.White, false);
             }
         }
-
+        
         /// <summary>
         /// Writes the output to the console control.
         /// </summary>

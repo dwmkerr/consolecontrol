@@ -74,6 +74,9 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AnyLinkRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ConsoleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

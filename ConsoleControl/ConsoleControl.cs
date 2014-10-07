@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ConsoleControlAPI;
+using System.Diagnostics;
 
 namespace ConsoleControl
 {
@@ -184,16 +185,6 @@ namespace ConsoleControl
                 //  Write the input (without echoing).
                 WriteInput(input, Color.White, false);
             }
-        }
-        
-        /// <summary>
-        /// Handles the links clicked in the richTextBoxConsole control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Forms.LinkClickedEventArgs"/> instance containing the event data.</param>
-        private void richTextBoxConsole_LinkClicked(object sender, LinkClickedEventArgs e)
-        {
-            Process.Start(e.LinkText);
         }
         
         /// <summary>

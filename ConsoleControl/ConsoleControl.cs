@@ -185,7 +185,17 @@ namespace ConsoleControl
                 WriteInput(input, Color.White, false);
             }
         }
-
+        
+        /// <summary>
+        /// Handles the links clicked in the richTextBoxConsole control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Forms.LinkClickedEventArgs"/> instance containing the event data.</param>
+        private void richTextBoxConsole_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
+        }
+        
         /// <summary>
         /// Writes the output to the console control.
         /// </summary>

@@ -13,7 +13,7 @@ namespace ConsoleControl
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="args">The <see cref="ConsoleEventArgs"/> instance containing the event data.</param>
-    public delegate void ConsoleEventHanlder(object sender, ConsoleEventArgs args);
+    public delegate void ConsoleEventHandler(object sender, ConsoleEventArgs args);
 
     /// <summary>
     /// The Console Control allows you to embed a basic console in your application.
@@ -334,12 +334,12 @@ namespace ConsoleControl
         /// <summary>
         /// Occurs when console output is produced.
         /// </summary>
-        public event ConsoleEventHanlder OnConsoleOutput;
+        public event ConsoleEventHandler OnConsoleOutput;
 
         /// <summary>
         /// Occurs when console input is produced.
         /// </summary>
-        public event ConsoleEventHanlder OnConsoleInput;
+        public event ConsoleEventHandler OnConsoleInput;
 
         /// <summary>
         /// Gets or sets a value indicating whether to show diagnostics.

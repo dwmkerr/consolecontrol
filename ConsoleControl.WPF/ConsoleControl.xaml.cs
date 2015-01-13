@@ -75,20 +75,20 @@ namespace ConsoleControl.WPF
         /// <param name="args">The <see cref="ProcessEventArgs"/> instance containing the event data.</param>
         void processInterace_OnProcessExit(object sender, ProcessEventArgs args)
         {
-            //  Are we showing diagnostics?
-            if (ShowDiagnostics)
-            {
-                WriteOutput(Environment.NewLine + processInterace.ProcessFileName + " exited.", Color.FromArgb(255, 0, 255, 0));
-            }
-
             //  Read only again.
             RunOnUIDespatcher(() =>
                 {
-                    richTextBoxConsole.IsReadOnly = true;
-                });
+                    //  Are we showing diagnostics?
+                    if (ShowDiagnostics)
+                    {
+                        WriteOutput(Environment.NewLine + processInterace.ProcessFileName + " exited.", Color.FromArgb(255, 0, 255, 0));
+                    }
 
-            //  And we're no longer running.
-            IsProcessRunning = false;
+                    richTextBoxConsole.IsReadOnly = true;
+
+                    //  And we're no longer running.
+                    IsProcessRunning = false;
+                });
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace ConsoleControl.WPF
         /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs" /> instance containing the event data.</param>
         void richTextBoxConsole_KeyDown(object sender, KeyEventArgs e)
         {
-            bool inReadOnlyZone = richTextBoxConsole.Selection.Start.CompareTo(inputStart) < 0;
+            bool inReadOnlyZone = richTextBoxConsole.Selection.Start.CompareTo(inputStartPos) < 0;
 
             //  If we're at the input point and it's backspace, bail.
             if (inReadOnlyZone && e.Key == Key.Back)
@@ -122,10 +122,10 @@ namespace ConsoleControl.WPF
             if (e.Key == Key.Return)
             {
                 //  Get the input.
-                //todostring input = richTextBoxConsole.Text.Substring(inputStart, (richTextBoxConsole.SelectionStart) - inputStart);
+                var input = new TextRange(inputStartPos, richTextBoxConsole.Selection.Start).Text;
 
                 //  Write the input (without echoing).
-                //todoWriteInput(input, Colors.White, false);
+                WriteInput(input, Colors.White, false);
             }
         }
 
@@ -143,9 +143,10 @@ namespace ConsoleControl.WPF
             RunOnUIDespatcher(() =>
                 {
                     //  Write the output.
+                    richTextBoxConsole.Selection.Select(richTextBoxConsole.Document.ContentEnd, richTextBoxConsole.Document.ContentEnd);
                     richTextBoxConsole.Selection.ApplyPropertyValue(TextBlock.ForegroundProperty, new SolidColorBrush(color));
                     richTextBoxConsole.AppendText(output);
-                    inputStart = richTextBoxConsole.Selection.Start;
+                    inputStartPos = richTextBoxConsole.Selection.Start.GetPositionAtOffset(0);
                 });
         }
 
@@ -154,8 +155,8 @@ namespace ConsoleControl.WPF
         /// </summary>
         public void ClearOutput()
         {
-           //todo richTextBoxConsole.Clear();
-            inputStart = null;
+            richTextBoxConsole.Document.Blocks.Clear();
+            inputStartPos = null;
         }
 
         /// <summary>
@@ -173,7 +174,7 @@ namespace ConsoleControl.WPF
                     {
                         richTextBoxConsole.Selection.ApplyPropertyValue(TextBlock.ForegroundProperty, new SolidColorBrush(color));
                         richTextBoxConsole.AppendText(input);
-                        inputStart = richTextBoxConsole.Selection.Start;
+                        inputStartPos = richTextBoxConsole.Selection.Start;
                     }
 
                     lastInput = input;
@@ -224,12 +225,16 @@ namespace ConsoleControl.WPF
             //  Start the process.
             processInterace.StartProcess(fileName, arguments);
 
-            //  If we enable input, make the control not read only.
-            if (IsInputEnabled)
-                richTextBoxConsole.IsReadOnly = false;
+            RunOnUIDespatcher(() =>
+                {
+                    //  If we enable input, make the control not read only.
+                    if (IsInputEnabled)
+                        richTextBoxConsole.IsReadOnly = false;
 
-            //  We're now running.
-            IsProcessRunning = true;
+                    //  We're now running.
+                    IsProcessRunning = true;
+                    
+                });
         }
 
         /// <summary>
@@ -273,7 +278,7 @@ namespace ConsoleControl.WPF
         /// <summary>
         /// Current position that input starts at.
         /// </summary>
-        private TextPointer inputStart;
+        private TextPointer inputStartPos;
         
         /// <summary>
         /// The last input string (used so that we can make sure we don't echo input twice).
@@ -343,6 +348,17 @@ namespace ConsoleControl.WPF
         {
             get { return (bool)GetValue(IsProcessRunningProperty); }
             private set { SetValue(IsProcessRunningPropertyKey, value); }
+        }
+
+        /// <summary>
+        /// Gets the internally used process interface.
+        /// </summary>
+        /// <value>
+        /// The process interface.
+        /// </value>
+        public ProcessInterface ProcessInterface
+        {
+            get { return processInterace; }
         }
     }
 }

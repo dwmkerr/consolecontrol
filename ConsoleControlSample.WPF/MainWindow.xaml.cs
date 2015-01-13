@@ -38,6 +38,7 @@ namespace ConsoleControlSample.WPF
         void StartCommandPromptCommand_Executed(object sender, Apex.MVVM.CommandEventArgs args)
         {
             consoleControl.StartProcess("cmd.exe", string.Empty);
+            UpdateProcessState();
         }
 
         /// <summary>
@@ -56,6 +57,8 @@ namespace ConsoleControlSample.WPF
         /// <param name="args">The <see cref="Apex.MVVM.CommandEventArgs"/> instance containing the event data.</param>
         void StopProcessCommand_Executed(object sender, Apex.MVVM.CommandEventArgs args)
         {
+            consoleControl.StopProcess();
+            UpdateProcessState();
         }
 
         /// <summary>
@@ -65,6 +68,16 @@ namespace ConsoleControlSample.WPF
         /// <param name="args">The <see cref="Apex.MVVM.CommandEventArgs"/> instance containing the event data.</param>
         void ClearOutputCommand_Executed(object sender, Apex.MVVM.CommandEventArgs args)
         {
+            consoleControl.ClearOutput();
+        }
+
+        private void UpdateProcessState()
+        {
+            //  Update the state.
+            if (consoleControl.IsProcessRunning)
+                viewModel.ProcessState = "Running " + System.IO.Path.GetFileName(consoleControl.ProcessInterface.ProcessFileName);
+            else
+                viewModel.ProcessState = "Not Running";
         }
     }
 }

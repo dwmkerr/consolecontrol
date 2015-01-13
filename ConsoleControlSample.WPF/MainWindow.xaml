@@ -39,11 +39,15 @@
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
                     </Button>
                     <Button Command="{Binding StopProcessCommand}"
-                        IsEnabled="{Binding IsProcessRunning, ElementName=consoleControl, 
-                        Converter={StaticResource InvertedBooleanConverter}, ConverterParameter=Invert}"
+                        IsEnabled="{Binding IsProcessRunning, ElementName=consoleControl}"
                         ToolTip="Stop Process">
                         <Image Source="/ConsoleControlSample.WPF;component/Resources/Stop.png"
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16"  />
+                    </Button>
+                    <Button Command="{Binding ClearOutputCommand}"
+                        ToolTip="Clear Output">
+                        <Image Source="/ConsoleControlSample.WPF;component/Resources/Delete.png" 
+                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
                     </Button>
                     <Separator />
                     <ToggleButton IsChecked="{Binding ShowDiagnostics, ElementName=consoleControl}"
@@ -56,22 +60,15 @@
                         <Image Source="/ConsoleControlSample.WPF;component/Resources/Control_TextBox.png" 
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
                     </ToggleButton>
-                    <ToggleButton IsChecked="{Binding EnableKeyboardCommands}"
-                        ToolTip="Send Keyboard Commands to Process">
-                        <Image Source="/ConsoleControlSample.WPF;component/Resources/GotoShortcuts.png" 
-                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
-                    </ToggleButton>
-                    <Button Command="{Binding ClearOutputCommand}"
-                        ToolTip="Clear Output">
-                        <Image Source="/ConsoleControlSample.WPF;component/Resources/Delete.png" 
-                                RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
-                    </Button>
                 </ToolBar>
             </ToolBarTray>
             
             <!-- The Status Bar. -->
             <StatusBar DockPanel.Dock="Bottom">
-                <TextBlock Text="Console State:" />
+                <TextBlock>
+                    <Run Text="Console State: " />
+                    <Run Text="{Binding ProcessState}" />
+                </TextBlock>
             </StatusBar>
         <consoleControl:ConsoleControl 
             x:Name="consoleControl" />

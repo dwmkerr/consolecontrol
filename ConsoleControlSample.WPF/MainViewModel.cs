@@ -22,55 +22,21 @@ namespace ConsoleControlSample.WPF
             StopProcessCommand = new Command(() => { });
             ClearOutputCommand = new Command(() => { });
         }
-
         
-        private NotifyingProperty ShowDiagnosticsProperty =
-          new NotifyingProperty("ShowDiagnostics", typeof(bool), default(bool));
+        private NotifyingProperty ProcessStateProperty =
+          new NotifyingProperty("ProcessState", typeof(string), default(string));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [show diagnostics].
+        /// Gets or sets the state of the process.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [show diagnostics]; otherwise, <c>false</c>.
+        /// The state of the process.
         /// </value>
-        public bool ShowDiagnostics
+        public string ProcessState
         {
-            get { return (bool)GetValue(ShowDiagnosticsProperty); }
-            set { SetValue(ShowDiagnosticsProperty, value); }
+            get { return (string)GetValue(ProcessStateProperty); }
+            set { SetValue(ProcessStateProperty, value); }
         }
-
-        
-        private NotifyingProperty EnableInputProperty =
-          new NotifyingProperty("EnableInput", typeof(bool), default(bool));
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [enable input].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable input]; otherwise, <c>false</c>.
-        /// </value>
-        public bool EnableInput
-        {
-            get { return (bool)GetValue(EnableInputProperty); }
-            set { SetValue(EnableInputProperty, value); }
-        }
-
-        
-        private NotifyingProperty EnableKeyboardCommandsProperty =
-          new NotifyingProperty("EnableKeyboardCommands", typeof(bool), default(bool));
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [enable keyboard commands].
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if [enable keyboard commands]; otherwise, <c>false</c>.
-        /// </value>
-        public bool EnableKeyboardCommands
-        {
-            get { return (bool)GetValue(EnableKeyboardCommandsProperty); }
-            set { SetValue(EnableKeyboardCommandsProperty, value); }
-        }
-                
 
         /// <summary>
         /// Gets the start command prompt command.

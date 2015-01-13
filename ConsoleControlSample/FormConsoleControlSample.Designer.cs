@@ -127,7 +127,7 @@
             this.toolStripButtonRunCMD.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRunCMD.Name = "toolStripButtonRunCMD";
             this.toolStripButtonRunCMD.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonRunCMD.Text = "Run CMD";
+            this.toolStripButtonRunCMD.Text = "Run Command Prompt";
             this.toolStripButtonRunCMD.Click += new System.EventHandler(this.toolStripButtonRunCMD_Click);
             // 
             // toolStripSeparator2
@@ -142,7 +142,7 @@
             this.toolStripButtonNewProcess.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNewProcess.Name = "toolStripButtonNewProcess";
             this.toolStripButtonNewProcess.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonNewProcess.Text = "New Process";
+            this.toolStripButtonNewProcess.Text = "Start a New Process";
             this.toolStripButtonNewProcess.Click += new System.EventHandler(this.toolStripButtonNewProcess_Click);
             // 
             // toolStripButtonStopProcess
@@ -213,9 +213,9 @@
             // consoleControl
             // 
             this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.consoleControl.Font = new System.Drawing.Font("Castellar", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.consoleControl.IsInputEnabled = true;
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
+            this.consoleControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.consoleControl.Name = "consoleControl";
             this.consoleControl.SendKeyboardCommandsToProcess = false;
             this.consoleControl.ShowDiagnostics = false;

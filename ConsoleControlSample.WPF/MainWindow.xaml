@@ -25,37 +25,44 @@
                     <Button 
                         Command="{Binding StartCommandPromptCommand}" 
                         IsEnabled="{Binding IsProcessRunning, ElementName=consoleControl, 
-                        Converter={StaticResource InvertedBooleanConverter}}">
+                        Converter={StaticResource InvertedBooleanConverter}}"
+                        ToolTip="Run Command Prompt">
                         <Image Source="/ConsoleControlSample.WPF;component/Resources/ConsoleControl.png"
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
                     </Button>
                     <Separator />
                     <Button Command="{Binding StartNewProcessCommand}"
                         IsEnabled="{Binding IsProcessRunning, ElementName=consoleControl, 
-                        Converter={StaticResource InvertedBooleanConverter}}">
+                        Converter={StaticResource InvertedBooleanConverter}}"
+                        ToolTip="Start a New Process">
                         <Image Source="/ConsoleControlSample.WPF;component/Resources/Play.png" 
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
                     </Button>
                     <Button Command="{Binding StopProcessCommand}"
                         IsEnabled="{Binding IsProcessRunning, ElementName=consoleControl, 
-                        Converter={StaticResource InvertedBooleanConverter}, ConverterParameter=Invert}">
+                        Converter={StaticResource InvertedBooleanConverter}, ConverterParameter=Invert}"
+                        ToolTip="Stop Process">
                         <Image Source="/ConsoleControlSample.WPF;component/Resources/Stop.png"
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16"  />
                     </Button>
                     <Separator />
-                    <ToggleButton IsChecked="{Binding ShowDiagnostics, ElementName=consoleControl}">
+                    <ToggleButton IsChecked="{Binding ShowDiagnostics, ElementName=consoleControl}"
+                        ToolTip="Show Diagnostics">
                         <Image Source="/ConsoleControlSample.WPF;component/Resources/Information.png"
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16"  />
                     </ToggleButton>
-                    <ToggleButton IsChecked="{Binding IsInputEnabled, ElementName=consoleControl}">
+                    <ToggleButton IsChecked="{Binding IsInputEnabled, ElementName=consoleControl}"
+                        ToolTip="Input Enabled">
                         <Image Source="/ConsoleControlSample.WPF;component/Resources/Control_TextBox.png" 
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
                     </ToggleButton>
-                    <ToggleButton IsChecked="{Binding EnableKeyboardCommands}">
+                    <ToggleButton IsChecked="{Binding EnableKeyboardCommands}"
+                        ToolTip="Send Keyboard Commands to Process">
                         <Image Source="/ConsoleControlSample.WPF;component/Resources/GotoShortcuts.png" 
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
                     </ToggleButton>
-                    <Button Command="{Binding ClearOutputCommand}">
+                    <Button Command="{Binding ClearOutputCommand}"
+                        ToolTip="Clear Output">
                         <Image Source="/ConsoleControlSample.WPF;component/Resources/Delete.png" 
                                 RenderOptions.BitmapScalingMode="Linear" Width="16" Height="16" />
                     </Button>

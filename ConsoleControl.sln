@@ -13,6 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleControlSample.WPF", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Shared", "0. Shared", "{39EC3474-A060-422A-8D28-D6D902A65F02}"
 	ProjectSection(SolutionItems) = preProject
+		ConsoleControl.pfx = ConsoleControl.pfx
 		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
 	EndProjectSection
 EndProject

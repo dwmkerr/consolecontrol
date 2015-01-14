@@ -22,3 +22,6 @@ Thumbs.db
 obj/
 [Rr]elease*/
 _ReSharper*/
+build/nuspec/ConsoleControl.WPF/lib/
+build/nuspec/ConsoleControl/lib/
+build/1.1.*

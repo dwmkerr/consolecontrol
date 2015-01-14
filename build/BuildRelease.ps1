@@ -30,8 +30,8 @@ Write-Host "Built Solution. Release Version: $releaseVersion"
 # Part 3 - Copy the libraries to the nuget package folders.
 $folderNugetWinForms = Join-Path $folderNuspecRoot "ConsoleControl\lib\net40"
 $folderNugetWPF= Join-Path $folderNuspecRoot "ConsoleControl.WPF\lib\net40"
-Remove-Item -Force $folderNugetWinForms
-Remove-Item -Force $folderNugetWPF
+Remove-Item -Force -Recurse $folderNugetWinForms
+Remove-Item -Force -Recurse $folderNugetWPF
 CopyItems (Join-Path $folderWinFormsBinaries "*.*") $folderNugetWinForms
 CopyItems (Join-Path $folderWPFBinaries "*.*") $folderNugetWPF
 

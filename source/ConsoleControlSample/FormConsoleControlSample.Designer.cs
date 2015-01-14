@@ -34,6 +34,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelConsoleState = new System.Windows.Forms.ToolStripStatusLabel();
+            this.consoleControl = new ConsoleControl.ConsoleControl();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonRunCMD = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -46,7 +47,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonClearOutput = new System.Windows.Forms.ToolStripButton();
             this.timerUpdateUI = new System.Windows.Forms.Timer(this.components);
-            this.consoleControl = new ConsoleControl.ConsoleControl();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -65,11 +65,11 @@
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.consoleControl);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(853, 391);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(784, 514);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(853, 438);
+            this.toolStripContainer.Size = new System.Drawing.Size(784, 561);
             this.toolStripContainer.TabIndex = 1;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -85,7 +85,7 @@
             this.toolStripStatusLabelConsoleState});
             this.statusStrip.Location = new System.Drawing.Point(0, 0);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(853, 22);
+            this.statusStrip.Size = new System.Drawing.Size(784, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -100,6 +100,18 @@
             this.toolStripStatusLabelConsoleState.Name = "toolStripStatusLabelConsoleState";
             this.toolStripStatusLabelConsoleState.Size = new System.Drawing.Size(75, 17);
             this.toolStripStatusLabelConsoleState.Text = "Not Running";
+            // 
+            // consoleControl
+            // 
+            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.consoleControl.IsInputEnabled = true;
+            this.consoleControl.Location = new System.Drawing.Point(0, 0);
+            this.consoleControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.consoleControl.Name = "consoleControl";
+            this.consoleControl.SendKeyboardCommandsToProcess = false;
+            this.consoleControl.ShowDiagnostics = false;
+            this.consoleControl.Size = new System.Drawing.Size(784, 514);
+            this.consoleControl.TabIndex = 0;
             // 
             // toolStrip
             // 
@@ -210,23 +222,11 @@
             this.timerUpdateUI.Enabled = true;
             this.timerUpdateUI.Tick += new System.EventHandler(this.timerUpdateUI_Tick);
             // 
-            // consoleControl
-            // 
-            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.consoleControl.IsInputEnabled = true;
-            this.consoleControl.Location = new System.Drawing.Point(0, 0);
-            this.consoleControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.consoleControl.Name = "consoleControl";
-            this.consoleControl.SendKeyboardCommandsToProcess = false;
-            this.consoleControl.ShowDiagnostics = false;
-            this.consoleControl.Size = new System.Drawing.Size(853, 391);
-            this.consoleControl.TabIndex = 0;
-            // 
             // FormConsoleControlSample
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(853, 438);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.toolStripContainer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormConsoleControlSample";

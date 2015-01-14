@@ -16,7 +16,7 @@
         </LinearGradientBrush>
     </UserControl.Background>
     <UserControl.FontSize>12</UserControl.FontSize>
-
+    
     <!-- The internal rich text box for the console. -->
     <RichTextBox 
         x:Name="richTextBoxConsole" Foreground="White" 

@@ -4,7 +4,7 @@
         xmlns:consoleControl="clr-namespace:ConsoleControl.WPF;assembly=ConsoleControl.WPF"
         xmlns:local="clr-namespace:ConsoleControlSample.WPF"
         xmlns:apexConverters="clr-namespace:Apex.Converters;assembly=Apex"
-        Title="Console Control WPF Sample" Height="400" Width="600">
+        Title="Console Control WPF Sample" Height="600" Width="800" Icon="Console.ico">
     
     <!-- The view model. -->
     <Window.DataContext>
@@ -71,7 +71,8 @@
                 </TextBlock>
             </StatusBar>
         <consoleControl:ConsoleControl 
-            x:Name="consoleControl" />
+            x:Name="consoleControl"
+            FontSize="14" />
         </DockPanel>
     </Grid>
 </Window>

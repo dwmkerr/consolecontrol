@@ -141,13 +141,15 @@ namespace ConsoleControl.WPF
                 return;
 
             RunOnUIDespatcher(() =>
-                {
-                    //  Write the output.
-                    richTextBoxConsole.Selection.Select(richTextBoxConsole.Document.ContentEnd, richTextBoxConsole.Document.ContentEnd);
-                    richTextBoxConsole.Selection.ApplyPropertyValue(TextBlock.ForegroundProperty, new SolidColorBrush(color));
-                    richTextBoxConsole.AppendText(output);
-                    inputStartPos = richTextBoxConsole.Selection.Start.GetPositionAtOffset(0);
-                });
+            {
+                //  Write the output.
+                var range = new TextRange(richTextBoxConsole.Document.ContentEnd, richTextBoxConsole.Document.ContentEnd);
+                range.Text = output;
+                range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(color));
+
+                //  Record the new input start.
+                inputStartPos = richTextBoxConsole.Document.ContentEnd.GetPositionAtOffset(0);
+            });
         }
 
         /// <summary>

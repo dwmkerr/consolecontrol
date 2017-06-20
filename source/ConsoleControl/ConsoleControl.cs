@@ -176,7 +176,8 @@ namespace ConsoleControl
             }
 
             //  Is it the return key?
-            if (e.KeyCode == Keys.Return)
+            // the following line has code contribution from @Xuntar, on github:
+            if (e.KeyCode == Keys.Return && richTextBoxConsole.SelectionStart >= inputStart)
             {
                 //  Get the input.
                 string input = richTextBoxConsole.Text.Substring(inputStart, (richTextBoxConsole.SelectionStart) - inputStart);

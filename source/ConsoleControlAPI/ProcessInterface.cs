@@ -16,7 +16,12 @@ namespace ConsoleControlAPI
     /// <summary>
     /// A class the wraps a process, allowing programmatic input and output.
     /// </summary>
-    public class ProcessInterface
+    /// <remarks>
+    /// Changes:
+    /// 1. IDisposable code contributions are from @webmaster442, on github.
+    /// 2. Base working directory was changed by @fantoms, on github.
+    /// </remarks>
+    public class ProcessInterface : IDisposable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProcessInterface"/> class.
@@ -318,10 +323,55 @@ namespace ConsoleControlAPI
             }
         }
 
-        /// <summary>
-        /// The current process.
-        /// </summary>
-        private Process process;
+        ~ProcessInterface()
+        {
+            Dispose(true);
+        }
+
+        protected void Dispose(bool native)
+        {
+            if (outputWorker != null)
+            {
+                outputWorker.Dispose();
+                outputWorker = null;
+            }
+            if (errorWorker != null)
+            {
+                errorWorker.Dispose();
+                errorWorker = null;
+            }
+            if (process != null)
+            {
+                process.Dispose();
+                process = null;
+            }
+            if (inputWriter != null)
+            {
+                inputWriter.Dispose();
+                inputWriter = null;
+            }
+            if (outputReader != null)
+            {
+                outputReader.Dispose();
+                outputReader = null;
+            }
+            if (errorReader != null)
+            {
+                errorReader.Dispose();
+                errorReader = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+/// <summary>
+/// The current process.
+/// </summary>
+private Process process;
         
         /// <summary>
         /// The input writer.

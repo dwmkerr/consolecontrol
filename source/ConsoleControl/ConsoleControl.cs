@@ -142,13 +142,16 @@ namespace ConsoleControl
                                k.IsShiftPressed == e.Shift)
                                select k;
 
+                // Code was not used, found it commented out? :
+
                 //  Go through each mapping, send the message.
-                foreach (var mapping in mappings)
-                {
-                    //SendKeysEx.SendKeys(CurrentProcessHwnd, mapping.SendKeysMapping);
-                    //inputWriter.WriteLine(mapping.StreamMapping);
-//WriteInput("\x3", Color.White, false);
-                }
+
+                //foreach (var mapping in mappings)
+                //{
+                //    //SendKeysEx.SendKeys(CurrentProcessHwnd, mapping.SendKeysMapping);
+                //    //inputWriter.WriteLine(mapping.StreamMapping);
+                //    //WriteInput("\x3", Color.White, false);
+                //}
 
                 //  If we handled a mapping, we're done here.
                 if (mappings.Any())
@@ -158,7 +161,10 @@ namespace ConsoleControl
                 }
             }
 
-            //  If we're at the input point and it's backspace, bail.
+            // block selection copy, if we do not have any input.
+            if (inputStart == -1) e.SuppressKeyPress = true;
+
+            //  Prevent Enter from sending nothing.
             if ((richTextBoxConsole.SelectionStart <= inputStart) && e.KeyCode == Keys.Back) e.SuppressKeyPress = true;
 
             //  Are we in the read-only zone?
@@ -173,17 +179,6 @@ namespace ConsoleControl
                 {
                     e.SuppressKeyPress = true;
                 }
-            }
-
-            //  Is it the return key?
-            // the following line has code contribution from @Xuntar, on github:
-            if (e.KeyCode == Keys.Return && richTextBoxConsole.SelectionStart >= inputStart)
-            {
-                //  Get the input.
-                string input = richTextBoxConsole.Text.Substring(inputStart, (richTextBoxConsole.SelectionStart) - inputStart);
-
-                //  Write the input (without echoing).
-                WriteInput(input, Color.White, false);
             }
         }
 

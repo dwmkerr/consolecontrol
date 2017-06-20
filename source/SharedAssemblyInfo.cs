@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyCompany("Dave Kerr")]
+[assembly: AssemblyCompany("fantoms")]
 [assembly: AssemblyProduct("ConsoleControl")]
 [assembly: AssemblyCopyright("Copyright © Dave Kerr 2013-2015. http://www.dwmkerr.com")]
 
@@ -16,5 +16,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyFileVersion("1.3.0.0")]

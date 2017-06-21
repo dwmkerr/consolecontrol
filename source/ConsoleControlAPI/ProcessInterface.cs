@@ -207,9 +207,11 @@ namespace ConsoleControlAPI
             }
             catch (Exception e)
             {
+                var msg = $"Failed to start process {fileName} with arguments '{arguments}'";
                 //  Trace the exception.
-                Trace.WriteLine("Failed to start process " + fileName + " with arguments '" + arguments + "'");
+                Trace.WriteLine(msg);
                 Trace.WriteLine(e.ToString());
+                FireProcessErrorEvent(msg);
                 return;
             }
 
@@ -227,6 +229,63 @@ namespace ConsoleControlAPI
             errorWorker.RunWorkerAsync();
         }
 
+        /// <summary>
+        /// Runs a process.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="workingDirectory">Starting folder.</param>
+        public string StartProcessResult(string fileName, string arguments, string workingDirectory)
+        {
+            //  Create the process start info.
+            var processStartInfo = new ProcessStartInfo(fileName, arguments);
+
+            //  Set the options.
+            processStartInfo.UseShellExecute = false;
+            processStartInfo.ErrorDialog = false;
+            processStartInfo.CreateNoWindow = true;
+            processStartInfo.WorkingDirectory = workingDirectory;
+
+            //  Specify redirection.
+            processStartInfo.RedirectStandardError = true;
+            processStartInfo.RedirectStandardInput = true;
+            processStartInfo.RedirectStandardOutput = true;
+
+            //  Create the process.
+            process = new Process();
+            process.EnableRaisingEvents = true;
+            process.StartInfo = processStartInfo;
+            process.Exited += currentProcess_Exited;
+
+            //  Start the process.
+            try
+            {
+                process.Start();
+            }
+            catch (Exception e)
+            {
+                var msg = $"Failed to start process {fileName} with arguments '{arguments}'";
+                process = null;
+                //  Trace the exception.
+                Trace.WriteLine(msg);
+                Trace.WriteLine(e.ToString());
+                return msg;
+            }
+
+            //  Store name and arguments.
+            processFileName = fileName;
+            processArguments = arguments;
+
+            //  Create the readers and writers.
+            inputWriter = process.StandardInput;
+            outputReader = TextReader.Synchronized(process.StandardOutput);
+            errorReader = TextReader.Synchronized(process.StandardError);
+
+            //  Run the workers that read output and error.
+            outputWorker.RunWorkerAsync();
+            errorWorker.RunWorkerAsync();
+            return string.Empty;
+        }
 
         /// <summary>
         /// Stops the process.
@@ -368,10 +427,10 @@ namespace ConsoleControlAPI
             GC.SuppressFinalize(this);
         }
 
-/// <summary>
-/// The current process.
-/// </summary>
-private Process process;
+        /// <summary>
+        /// The current process.
+        /// </summary>
+        private Process process;
         
         /// <summary>
         /// The input writer.

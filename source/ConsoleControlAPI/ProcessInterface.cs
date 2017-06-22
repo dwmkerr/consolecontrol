@@ -16,7 +16,12 @@ namespace ConsoleControlAPI
     /// <summary>
     /// A class the wraps a process, allowing programmatic input and output.
     /// </summary>
-    public class ProcessInterface
+    /// <remarks>
+    /// Changes:
+    /// 1. IDisposable code contributions are from @webmaster442, on github.
+    /// 2. Base working directory was changed by @fantoms, on github.
+    /// </remarks>
+    public class ProcessInterface : IDisposable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProcessInterface"/> class.
@@ -168,6 +173,121 @@ namespace ConsoleControlAPI
         }
 
         /// <summary>
+        /// Runs a process.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="workingDirectory">Starting folder.</param>
+        public void StartProcess(string fileName, string arguments, string workingDirectory)
+        {
+            //  Create the process start info.
+            var processStartInfo = new ProcessStartInfo(fileName, arguments);
+
+            //  Set the options.
+            processStartInfo.UseShellExecute = false;
+            processStartInfo.ErrorDialog = false;
+            processStartInfo.CreateNoWindow = true;
+            processStartInfo.WorkingDirectory = workingDirectory;
+
+            //  Specify redirection.
+            processStartInfo.RedirectStandardError = true;
+            processStartInfo.RedirectStandardInput = true;
+            processStartInfo.RedirectStandardOutput = true;
+
+            //  Create the process.
+            process = new Process();
+            process.EnableRaisingEvents = true;
+            process.StartInfo = processStartInfo;
+            process.Exited += currentProcess_Exited;
+
+            //  Start the process.
+            try
+            {
+                process.Start();
+            }
+            catch (Exception e)
+            {
+                var msg = $"Failed to start process {fileName} with arguments '{arguments}'";
+                //  Trace the exception.
+                Trace.WriteLine(msg);
+                Trace.WriteLine(e.ToString());
+                FireProcessErrorEvent(msg);
+                return;
+            }
+
+            //  Store name and arguments.
+            processFileName = fileName;
+            processArguments = arguments;
+
+            //  Create the readers and writers.
+            inputWriter = process.StandardInput;
+            outputReader = TextReader.Synchronized(process.StandardOutput);
+            errorReader = TextReader.Synchronized(process.StandardError);
+
+            //  Run the workers that read output and error.
+            outputWorker.RunWorkerAsync();
+            errorWorker.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// Runs a process.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="workingDirectory">Starting folder.</param>
+        public string StartProcessResult(string fileName, string arguments, string workingDirectory)
+        {
+            //  Create the process start info.
+            var processStartInfo = new ProcessStartInfo(fileName, arguments);
+
+            //  Set the options.
+            processStartInfo.UseShellExecute = false;
+            processStartInfo.ErrorDialog = false;
+            processStartInfo.CreateNoWindow = true;
+            processStartInfo.WorkingDirectory = workingDirectory;
+
+            //  Specify redirection.
+            processStartInfo.RedirectStandardError = true;
+            processStartInfo.RedirectStandardInput = true;
+            processStartInfo.RedirectStandardOutput = true;
+
+            //  Create the process.
+            process = new Process();
+            process.EnableRaisingEvents = true;
+            process.StartInfo = processStartInfo;
+            process.Exited += currentProcess_Exited;
+
+            //  Start the process.
+            try
+            {
+                process.Start();
+            }
+            catch (Exception e)
+            {
+                var msg = $"Failed to start process {fileName} with arguments '{arguments}'";
+                process = null;
+                //  Trace the exception.
+                Trace.WriteLine(msg);
+                Trace.WriteLine(e.ToString());
+                return msg;
+            }
+
+            //  Store name and arguments.
+            processFileName = fileName;
+            processArguments = arguments;
+
+            //  Create the readers and writers.
+            inputWriter = process.StandardInput;
+            outputReader = TextReader.Synchronized(process.StandardOutput);
+            errorReader = TextReader.Synchronized(process.StandardError);
+
+            //  Run the workers that read output and error.
+            outputWorker.RunWorkerAsync();
+            errorWorker.RunWorkerAsync();
+            return string.Empty;
+        }
+
+        /// <summary>
         /// Stops the process.
         /// </summary>
         public void StopProcess()
@@ -260,6 +380,70 @@ namespace ConsoleControlAPI
                 inputWriter.WriteLine(input);
                 inputWriter.Flush();
             }
+        }
+
+        /// <summary>
+        /// Disposes of the Process Interface
+        /// </summary>
+        ~ProcessInterface()
+        {
+            Dispose(true);
+        }
+
+        /// <summary>
+        /// Dispose function to unload process resources after checking if the internal objects have been disposed.
+        /// </summary>
+        protected void Dispose(bool native)
+        {
+            if (outputWorker != null)
+            {
+                outputWorker.Dispose();
+                outputWorker = null;
+            }
+            if (errorWorker != null)
+            {
+                errorWorker.Dispose();
+                errorWorker = null;
+            }
+            if (process != null)
+            {
+                process.Dispose();
+                process = null;
+            }
+            try
+            {
+                if (inputWriter != null)
+                {
+                    inputWriter.Dispose();
+                    inputWriter = null;
+                }
+            } catch (ObjectDisposedException disposed)
+            {
+                //TODO: Determine issues with process exit and remove the try catch
+                Console.WriteLine($"Already disposed.. {disposed.ToString()}");
+                return;
+            }
+
+            if (outputReader != null)
+            {
+                outputReader.Dispose();
+                outputReader = null;
+            }
+            if (errorReader != null)
+            {
+                errorReader.Dispose();
+                errorReader = null;
+            }
+
+        }
+
+        /// <summary>
+        /// Main Dispose function.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>

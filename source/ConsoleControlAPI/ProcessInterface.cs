@@ -382,11 +382,17 @@ namespace ConsoleControlAPI
             }
         }
 
+        /// <summary>
+        /// Disposes of the Process Interface
+        /// </summary>
         ~ProcessInterface()
         {
             Dispose(true);
         }
 
+        /// <summary>
+        /// Dispose function to unload process resources after checking if the internal objects have been disposed.
+        /// </summary>
         protected void Dispose(bool native)
         {
             if (outputWorker != null)
@@ -421,6 +427,9 @@ namespace ConsoleControlAPI
             }
         }
 
+        /// <summary>
+        /// Main Dispose function.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

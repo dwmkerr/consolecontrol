@@ -395,35 +395,43 @@ namespace ConsoleControlAPI
         /// </summary>
         protected void Dispose(bool native)
         {
-            if (outputWorker != null)
+            try
             {
-                outputWorker.Dispose();
-                outputWorker = null;
-            }
-            if (errorWorker != null)
+                if (outputWorker != null)
+                {
+                    outputWorker.Dispose();
+                    outputWorker = null;
+                }
+                if (errorWorker != null)
+                {
+                    errorWorker.Dispose();
+                    errorWorker = null;
+                }
+                if (process != null)
+                {
+                    process.Dispose();
+                    process = null;
+                }
+                if (inputWriter != null)
+                {
+                    inputWriter.Dispose();
+                    inputWriter = null;
+                }
+                if (outputReader != null)
+                {
+                    outputReader.Dispose();
+                    outputReader = null;
+                }
+                if (errorReader != null)
+                {
+                    errorReader.Dispose();
+                    errorReader = null;
+                }
+            } catch (System.ObjectDisposedException disposed)
             {
-                errorWorker.Dispose();
-                errorWorker = null;
-            }
-            if (process != null)
-            {
-                process.Dispose();
-                process = null;
-            }
-            if (inputWriter != null)
-            {
-                inputWriter.Dispose();
-                inputWriter = null;
-            }
-            if (outputReader != null)
-            {
-                outputReader.Dispose();
-                outputReader = null;
-            }
-            if (errorReader != null)
-            {
-                errorReader.Dispose();
-                errorReader = null;
+                //TODO: Determine issues with process exit and remove the try catch
+                Console.WriteLine($"Already disposed.. {disposed.ToString()}");
+                return;
             }
         }
 

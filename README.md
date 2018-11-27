@@ -1,5 +1,6 @@
-ConsoleControl
-==============
+# ConsoleControl
+
+[![Build status](https://ci.appveyor.com/api/projects/status/8i3y31o3j6aomjim?svg=true)](https://ci.appveyor.com/project/dwmkerr/consolecontrol)
 
 ConsoleControl is a C# class library that lets you embed a console in a WinForms or WPF application. This console can be used for input and output for a process. It's great for making tools and utilities.
 

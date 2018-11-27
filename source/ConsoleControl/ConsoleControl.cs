@@ -130,6 +130,9 @@ namespace ConsoleControl
         /// <param name="e">The <see cref="System.Windows.Forms.KeyEventArgs"/> instance containing the event data.</param>
         void richTextBoxConsole_KeyDown(object sender, KeyEventArgs e)
         {
+            //  Check whether we are in the read-only zone.
+            var isInReadOnlyZone = richTextBoxConsole.SelectionStart < inputStart;
+
             //  Are we sending keyboard commands to the process?
             if (SendKeyboardCommandsToProcess && IsProcessRunning)
             {
@@ -162,7 +165,7 @@ namespace ConsoleControl
             if ((richTextBoxConsole.SelectionStart <= inputStart) && e.KeyCode == Keys.Back) e.SuppressKeyPress = true;
 
             //  Are we in the read-only zone?
-            if (richTextBoxConsole.SelectionStart < inputStart)
+            if (isInReadOnlyZone)
             {
                 //  Allow arrows and Ctrl-C.
                 if (!(e.KeyCode == Keys.Left ||
@@ -175,8 +178,8 @@ namespace ConsoleControl
                 }
             }
 
-            //  Is it the return key?
-            if (e.KeyCode == Keys.Return)
+            //  Write the input if we hit return and we're NOT in the read only zone.
+            if (e.KeyCode == Keys.Return && !isInReadOnlyZone)
             {
                 //  Get the input.
                 string input = richTextBoxConsole.Text.Substring(inputStart, (richTextBoxConsole.SelectionStart) - inputStart);

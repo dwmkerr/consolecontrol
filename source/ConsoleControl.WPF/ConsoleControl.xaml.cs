@@ -27,7 +27,7 @@ namespace ConsoleControl.WPF
             processInterace.OnProcessExit += processInterace_OnProcessExit;
 
             //  Wait for key down messages on the rich text box.
-            richTextBoxConsole.KeyDown += richTextBoxConsole_KeyDown;
+            richTextBoxConsole.PreviewKeyDown += richTextBoxConsole_PreviewKeyDown;
         }
 
         /// <summary>
@@ -96,9 +96,11 @@ namespace ConsoleControl.WPF
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs" /> instance containing the event data.</param>
-        void richTextBoxConsole_KeyDown(object sender, KeyEventArgs e)
+        void richTextBoxConsole_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            bool inReadOnlyZone = richTextBoxConsole.Selection.Start.CompareTo(inputStartPos) < 0;
+            var caretPosition = richTextBoxConsole.GetCaretPosition();
+            var delta = caretPosition - inputStartPos;
+            var inReadOnlyZone = delta < 0;
 
             //  If we're at the input point and it's backspace, bail.
             if (inReadOnlyZone && e.Key == Key.Back)
@@ -122,7 +124,7 @@ namespace ConsoleControl.WPF
             if (e.Key == Key.Return)
             {
                 //  Get the input.
-                var input = new TextRange(inputStartPos, richTextBoxConsole.Selection.Start).Text;
+                var input = new TextRange(richTextBoxConsole.GetPointerAt(inputStartPos), richTextBoxConsole.Selection.Start).Text;
 
                 //  Write the input (without echoing).
                 WriteInput(input, Colors.White, false);
@@ -143,12 +145,16 @@ namespace ConsoleControl.WPF
             RunOnUIDespatcher(() =>
             {
                 //  Write the output.
-                var range = new TextRange(richTextBoxConsole.Document.ContentEnd, richTextBoxConsole.Document.ContentEnd);
-                range.Text = output;
+                var range = new TextRange(richTextBoxConsole.GetEndPointer(), richTextBoxConsole.GetEndPointer())
+                {
+                    Text = output
+                };
                 range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(color));
-
+                
                 //  Record the new input start.
-                inputStartPos = richTextBoxConsole.Document.ContentEnd.GetPositionAtOffset(0);
+                richTextBoxConsole.ScrollToEnd();
+                richTextBoxConsole.SetCaretToEnd();
+                inputStartPos = richTextBoxConsole.GetCaretPosition();
             });
         }
 
@@ -158,7 +164,7 @@ namespace ConsoleControl.WPF
         public void ClearOutput()
         {
             richTextBoxConsole.Document.Blocks.Clear();
-            inputStartPos = null;
+            inputStartPos = 0;
         }
 
         /// <summary>
@@ -176,7 +182,7 @@ namespace ConsoleControl.WPF
                     {
                         richTextBoxConsole.Selection.ApplyPropertyValue(TextBlock.ForegroundProperty, new SolidColorBrush(color));
                         richTextBoxConsole.AppendText(input);
-                        inputStartPos = richTextBoxConsole.Selection.Start;
+                        inputStartPos = richTextBoxConsole.GetEndPosition();
                     }
 
                     lastInput = input;
@@ -280,7 +286,7 @@ namespace ConsoleControl.WPF
         /// <summary>
         /// Current position that input starts at.
         /// </summary>
-        private TextPointer inputStartPos;
+        private int inputStartPos;
         
         /// <summary>
         /// The last input string (used so that we can make sure we don't echo input twice).

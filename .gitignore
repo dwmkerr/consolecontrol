@@ -25,3 +25,4 @@ _ReSharper*/
 build/nuspec/ConsoleControl.WPF/lib/
 build/nuspec/ConsoleControl/lib/
 build/1.1.*
+source/.vs

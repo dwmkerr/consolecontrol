@@ -2,11 +2,6 @@ version: 1.0.{build}
 image: Visual Studio 2017
 configuration: Release
 
-# Before building, restore Nuget packages and install dependencies.
-before_build:
-- ps: |
-    nuget restore source\ConsoleControl.sln
-
 build:
   project: source\ConsoleControl.sln
   publish_nuget: true
@@ -22,6 +17,6 @@ deploy:
 - provider: GitHub
   auth_token:
     secure: KTWUORrnJKPKLSf/3ROLY50T9UfgTMnKHf3OjBOv8tlY/DAxtlglRU3eM+j45fMt
-  artifact: SharpShell.*.nupkg, ServerRegistrationManager.*.nupkg, ServerManager.zip, ServerRegistrationManager.zip
+  artifact: SharpShell.*.nupkg, ServerRegistrationManager.*.nupkg
   on:
     APPVEYOR_REPO_TAG: true

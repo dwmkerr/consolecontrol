@@ -123,6 +123,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConsoleControl.nuspec" />
     <None Include="ConsoleControl.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

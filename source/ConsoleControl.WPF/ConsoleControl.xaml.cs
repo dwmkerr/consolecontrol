@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -220,29 +221,38 @@ namespace ConsoleControl.WPF
         /// <param name="arguments">The arguments.</param>
         public void StartProcess(string fileName, string arguments)
         {
+            StartProcess(new ProcessStartInfo(fileName, arguments));
+        }
+
+        /// <summary>
+        /// Runs a process.
+        /// </summary>
+        /// <param name="processStartInfo"><see cref="ProcessStartInfo"/> to pass to the process.</param>
+        public void StartProcess(ProcessStartInfo processStartInfo)
+        {
             //  Are we showing diagnostics?
             if (ShowDiagnostics)
             {
-                WriteOutput("Preparing to run " + fileName, Color.FromArgb(255, 0, 255, 0));
-                if (!string.IsNullOrEmpty(arguments))
-                    WriteOutput(" with arguments " + arguments + "." + Environment.NewLine, Color.FromArgb(255, 0, 255, 0));
+                WriteOutput("Preparing to run " + processStartInfo.FileName, Color.FromArgb(255, 0, 255, 0));
+                if (!string.IsNullOrEmpty(processStartInfo.Arguments))
+                    WriteOutput(" with arguments " + processStartInfo.Arguments + "." + Environment.NewLine, Color.FromArgb(255, 0, 255, 0));
                 else
                     WriteOutput("." + Environment.NewLine, Color.FromArgb(255, 0, 255, 0));
             }
 
             //  Start the process.
-            processInterface.StartProcess(fileName, arguments);
+            processInterface.StartProcess(processStartInfo);
 
             RunOnUIDispatcher(() =>
-                {
-                    //  If we enable input, make the control not read only.
-                    if (IsInputEnabled)
-                        richTextBoxConsole.IsReadOnly = false;
+            {
+                //  If we enable input, make the control not read only.
+                if (IsInputEnabled)
+                    richTextBoxConsole.IsReadOnly = false;
 
-                    //  We're now running.
-                    IsProcessRunning = true;
+                //  We're now running.
+                IsProcessRunning = true;
                     
-                });
+            });
         }
 
         /// <summary>

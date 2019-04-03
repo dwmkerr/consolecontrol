@@ -123,7 +123,15 @@ namespace ConsoleControlAPI
         {
             //  Create the process start info.
             var processStartInfo = new ProcessStartInfo(fileName, arguments);
+            StartProcess(processStartInfo);
+        }
 
+        /// <summary>
+        /// Runs a process.
+        /// </summary>
+        /// <param name="processStartInfo"><see cref="ProcessStartInfo"/> to pass to the process.</param>
+        public void StartProcess(ProcessStartInfo processStartInfo)
+        {
             //  Set the options.
             processStartInfo.UseShellExecute = false;
             processStartInfo.ErrorDialog = false;
@@ -148,14 +156,14 @@ namespace ConsoleControlAPI
             catch (Exception e)
             {
                 //  Trace the exception.
-                Trace.WriteLine("Failed to start process " + fileName + " with arguments '" + arguments + "'");
+                Trace.WriteLine("Failed to start process " + processStartInfo.FileName + " with arguments '" + processStartInfo.Arguments + "'");
                 Trace.WriteLine(e.ToString());
                 return;
             }
 
             //  Store name and arguments.
-            processFileName = fileName;
-            processArguments = arguments;
+            processFileName = processStartInfo.FileName;
+            processArguments = processStartInfo.Arguments;
 
             //  Create the readers and writers.
             inputWriter = process.StandardInput;

@@ -22,10 +22,10 @@ namespace ConsoleControl.WPF
             InitializeComponent();
             
             //  Handle process events.
-            ProcessInterface.OnProcessOutput += ProcessInterface_OnProcessOutput;
-            ProcessInterface.OnProcessError += ProcessInterface_OnProcessError;
-            ProcessInterface.OnProcessInput += ProcessInterface_OnProcessInput;
-            ProcessInterface.OnProcessExit += ProcessInterface_OnProcessExit;
+            processInterface.OnProcessOutput += ProcessInterface_OnProcessOutput;
+            processInterface.OnProcessError += ProcessInterface_OnProcessError;
+            processInterface.OnProcessInput += ProcessInterface_OnProcessInput;
+            processInterface.OnProcessExit += ProcessInterface_OnProcessExit;
 
             //  Wait for key down messages on the rich text box.
             richTextBoxConsole.PreviewKeyDown += richTextBoxConsole_PreviewKeyDown;
@@ -82,7 +82,7 @@ namespace ConsoleControl.WPF
                     //  Are we showing diagnostics?
                     if (ShowDiagnostics)
                     {
-                        WriteOutput(Environment.NewLine + ProcessInterface.ProcessFileName + " exited.", Color.FromArgb(255, 0, 255, 0));
+                        WriteOutput(Environment.NewLine + processInterface.ProcessFileName + " exited.", Color.FromArgb(255, 0, 255, 0));
                     }
 
                     richTextBoxConsole.IsReadOnly = true;
@@ -189,7 +189,7 @@ namespace ConsoleControl.WPF
                     lastInput = input;
 
                     //  Write the input.
-                    ProcessInterface.WriteInput(input);
+                    processInterface.WriteInput(input);
 
                     //  Fire the event.
                     FireProcessInputEvent(new ProcessEventArgs(input));
@@ -241,7 +241,7 @@ namespace ConsoleControl.WPF
             }
 
             //  Start the process.
-            ProcessInterface.StartProcess(processStartInfo);
+            processInterface.StartProcess(processStartInfo);
 
             RunOnUIDispatcher(() =>
             {
@@ -261,7 +261,7 @@ namespace ConsoleControl.WPF
         public void StopProcess()
         {
             //  Stop the interface.
-            ProcessInterface.StopProcess();
+            processInterface.StopProcess();
         }
 
         /// <summary>
@@ -287,6 +287,11 @@ namespace ConsoleControl.WPF
             if (theEvent != null)
                 theEvent(this, args);
         }
+
+        /// <summary>
+        /// The internal process interface used to interface with the process.
+        /// </summary>
+        private readonly ProcessInterface processInterface = new ProcessInterface();
 
         /// <summary>
         /// Current position that input starts at.
@@ -328,6 +333,7 @@ namespace ConsoleControl.WPF
         {
         }
         
+        
         private static readonly DependencyProperty IsInputEnabledProperty = 
           DependencyProperty.Register("IsInputEnabled", typeof(bool), typeof(ConsoleControl),
           new PropertyMetadata(true));
@@ -368,6 +374,9 @@ namespace ConsoleControl.WPF
         /// <value>
         /// The process interface.
         /// </value>
-        public ProcessInterface ProcessInterface { get; } = new ProcessInterface();
+        public ProcessInterface ProcessInterface
+        {
+            get { return processInterface; }
+        }
     }
 }

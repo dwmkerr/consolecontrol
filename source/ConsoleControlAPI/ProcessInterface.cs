@@ -11,7 +11,7 @@ namespace ConsoleControlAPI
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="args">The <see cref="ProcessEventArgs"/> instance containing the event data.</param>
-    public delegate void ProcessEventHanlder(object sender, ProcessEventArgs args);
+    public delegate void ProcessEventHandler(object sender, ProcessEventArgs args);
 
     /// <summary>
     /// A class the wraps a process, allowing programmatic input and output.
@@ -305,22 +305,22 @@ namespace ConsoleControlAPI
         /// <summary>
         /// Occurs when process output is produced.
         /// </summary>
-        public event ProcessEventHanlder OnProcessOutput;
+        public event ProcessEventHandler OnProcessOutput;
 
         /// <summary>
         /// Occurs when process error output is produced.
         /// </summary>
-        public event ProcessEventHanlder OnProcessError;
+        public event ProcessEventHandler OnProcessError;
 
         /// <summary>
         /// Occurs when process input is produced.
         /// </summary>
-        public event ProcessEventHanlder OnProcessInput;
+        public event ProcessEventHandler OnProcessInput;
 
         /// <summary>
         /// Occurs when the process ends.
         /// </summary>
-        public event ProcessEventHanlder OnProcessExit;
+        public event ProcessEventHandler OnProcessExit;
         
         /// <summary>
         /// Gets a value indicating whether this instance is process running.

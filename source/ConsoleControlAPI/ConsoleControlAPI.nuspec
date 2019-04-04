@@ -3,17 +3,14 @@
     <metadata>
         <id>$id$</id>
         <version>$version$</version>
-        <title>ConsoleControl for WinForms</title>
+        <title>ConsoleControl API</title>
         <authors>Dave Kerr</authors>
         <owners>Dave Kerr</owners>
         <licenseUrl>https://github.com/dwmkerr/consolecontrol/LICENSE.md</licenseUrl>
         <projectUrl>https://github.com/dwmkerr/consolecontrol</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>The ConsoleControl is a WinForms control that you can drop into a Form to run an external process in a C# application.</description>
+        <description>The ConsoleControl API provides common functionality used in the ConsoleControl and ConsoleControl.WPF libraries.</description>
         <copyright>Copyright © Dave Kerr 2019</copyright>
         <tags>Console,Shell</tags>
-        <dependencies>
-            <dependency id="ConsoleControlAPI" version="$version$" />
-        </dependencies>
     </metadata>
 </package>

@@ -11,7 +11,7 @@ namespace ConsoleControlAPI
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="args">The <see cref="ProcessEventArgs"/> instance containing the event data.</param>
-    public delegate void ProcessEventHanlder(object sender, ProcessEventArgs args);
+    public delegate void ProcessEventHandler(object sender, ProcessEventArgs args);
 
     /// <summary>
     /// A class the wraps a process, allowing programmatic input and output.
@@ -123,7 +123,15 @@ namespace ConsoleControlAPI
         {
             //  Create the process start info.
             var processStartInfo = new ProcessStartInfo(fileName, arguments);
+            StartProcess(processStartInfo);
+        }
 
+        /// <summary>
+        /// Runs a process.
+        /// </summary>
+        /// <param name="processStartInfo"><see cref="ProcessStartInfo"/> to pass to the process.</param>
+        public void StartProcess(ProcessStartInfo processStartInfo)
+        {
             //  Set the options.
             processStartInfo.UseShellExecute = false;
             processStartInfo.ErrorDialog = false;
@@ -148,14 +156,14 @@ namespace ConsoleControlAPI
             catch (Exception e)
             {
                 //  Trace the exception.
-                Trace.WriteLine("Failed to start process " + fileName + " with arguments '" + arguments + "'");
+                Trace.WriteLine("Failed to start process " + processStartInfo.FileName + " with arguments '" + processStartInfo.Arguments + "'");
                 Trace.WriteLine(e.ToString());
                 return;
             }
 
             //  Store name and arguments.
-            processFileName = fileName;
-            processArguments = arguments;
+            processFileName = processStartInfo.FileName;
+            processArguments = processStartInfo.Arguments;
 
             //  Create the readers and writers.
             inputWriter = process.StandardInput;
@@ -305,22 +313,22 @@ namespace ConsoleControlAPI
         /// <summary>
         /// Occurs when process output is produced.
         /// </summary>
-        public event ProcessEventHanlder OnProcessOutput;
+        public event ProcessEventHandler OnProcessOutput;
 
         /// <summary>
         /// Occurs when process error output is produced.
         /// </summary>
-        public event ProcessEventHanlder OnProcessError;
+        public event ProcessEventHandler OnProcessError;
 
         /// <summary>
         /// Occurs when process input is produced.
         /// </summary>
-        public event ProcessEventHanlder OnProcessInput;
+        public event ProcessEventHandler OnProcessInput;
 
         /// <summary>
         /// Occurs when the process ends.
         /// </summary>
-        public event ProcessEventHanlder OnProcessExit;
+        public event ProcessEventHandler OnProcessExit;
         
         /// <summary>
         /// Gets a value indicating whether this instance is process running.

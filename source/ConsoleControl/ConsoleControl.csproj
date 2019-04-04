@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Console.ico" />
+    <None Include="ConsoleControl.nuspec" />
     <EmbeddedResource Include="ConsoleControl.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +124,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConsoleControl.nuspec" />
     <None Include="ConsoleControl.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

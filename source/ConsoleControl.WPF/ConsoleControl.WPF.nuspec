@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>ConsoleControl for WPF</title>
+        <authors>Dave Kerr</authors>
+        <owners>Dave Kerr</owners>
+        <licenseUrl>https://github.com/dwmkerr/consolecontrol/LICENSE.md</licenseUrl>
+        <projectUrl>https://github.com/dwmkerr/consolecontrol</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>The ConsoleControl is a WPF control that you can drop into a WPF applcation to run an external process in a C# application.</description>
+        <copyright>Copyright © Dave Kerr 2019</copyright>
+        <tags>Console,Shell</tags>
+        <dependencies>
+            <dependency id="ConsoleControlAPI" version="$version$" />
+        </dependencies>
+    </metadata>
+</package>

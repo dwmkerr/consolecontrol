@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>ConsoleControl API</title>
+        <authors>Dave Kerr</authors>
+        <owners>Dave Kerr</owners>
+        <licenseUrl>https://github.com/dwmkerr/consolecontrol/LICENSE.md</licenseUrl>
+        <projectUrl>https://github.com/dwmkerr/consolecontrol</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>The ConsoleControl API provides common functionality used in the ConsoleControl and ConsoleControl.WPF libraries.</description>
+        <copyright>Copyright © Dave Kerr 2019</copyright>
+        <tags>Console,Shell</tags>
+    </metadata>
+</package>

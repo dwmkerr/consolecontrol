@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Console.ico" />
+    <None Include="ConsoleControl.nuspec" />
     <EmbeddedResource Include="ConsoleControl.bmp" />
   </ItemGroup>
   <ItemGroup>

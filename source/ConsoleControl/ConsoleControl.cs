@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -270,6 +271,30 @@ namespace ConsoleControl
 
             //  Start the process.
             processInterace.StartProcess(fileName, arguments);
+
+            //  If we enable input, make the control not read only.
+            if (IsInputEnabled)
+                richTextBoxConsole.ReadOnly = false;
+        }
+
+        /// <summary>
+        /// Runs a process.
+        /// </summary>
+        /// <param name="processStartInfo"><see cref="ProcessStartInfo"/> to pass to the process.</param>
+        public void StartProcess(ProcessStartInfo processStartInfo)
+        {
+            //  Are we showing diagnostics?
+            if (ShowDiagnostics)
+            {
+                WriteOutput("Preparing to run " + processStartInfo.FileName, Color.FromArgb(255, 0, 255, 0));
+                if (!string.IsNullOrEmpty(processStartInfo.Arguments))
+                    WriteOutput(" with arguments " + processStartInfo.Arguments + "." + Environment.NewLine, Color.FromArgb(255, 0, 255, 0));
+                else
+                    WriteOutput("." + Environment.NewLine, Color.FromArgb(255, 0, 255, 0));
+            }
+
+            //  Start the process.
+            processInterace.StartProcess(processStartInfo);
 
             //  If we enable input, make the control not read only.
             if (IsInputEnabled)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Diagnostics;
 using System.ComponentModel;
@@ -16,7 +16,7 @@ namespace ConsoleControlAPI
     /// <summary>
     /// A class the wraps a process, allowing programmatic input and output.
     /// </summary>
-    public class ProcessInterface
+    public class ProcessInterface: IDisposable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProcessInterface"/> class.
@@ -268,6 +268,51 @@ namespace ConsoleControlAPI
                 inputWriter.WriteLine(input);
                 inputWriter.Flush();
             }
+        }
+
+        ~ProcessInterface()
+        {
+            Dispose(true);
+        }
+
+        protected void Dispose(bool native)
+        {
+            if (outputWorker != null)
+            {
+                outputWorker.Dispose();
+                outputWorker = null;
+            }
+            if (errorWorker != null)
+            {
+                errorWorker.Dispose();
+                errorWorker = null;
+            }
+            if (process != null)
+            {
+                process.Dispose();
+                process = null;
+            }
+            if (inputWriter != null)
+            {
+                inputWriter.Dispose();
+                inputWriter = null;
+            }
+            if (outputReader != null)
+            {
+                outputReader.Dispose();
+                outputReader = null;
+            }
+            if (errorReader != null)
+            {
+                errorReader.Dispose();
+                errorReader = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>

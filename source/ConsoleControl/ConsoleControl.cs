@@ -178,7 +178,7 @@ namespace ConsoleControl
                     e.SuppressKeyPress = true;
                 }
             }
-
+            
             //  Write the input if we hit return and we're NOT in the read only zone.
             if (e.KeyCode == Keys.Return && !isInReadOnlyZone)
             {

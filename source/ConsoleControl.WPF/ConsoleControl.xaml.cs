@@ -270,10 +270,8 @@ namespace ConsoleControl.WPF
         /// <param name="args">The <see cref="ProcessEventArgs"/> instance containing the event data.</param>
         private void FireProcessOutputEvent(ProcessEventArgs args)
         {
-            //  Get the event.
-            var theEvent = OnProcessOutput;
-            if (theEvent != null)
-                theEvent(this, args);
+            //  Fire the event if it is set.
+            OnProcessOutput?.Invoke(this, args);
         }
 
         /// <summary>
@@ -282,10 +280,8 @@ namespace ConsoleControl.WPF
         /// <param name="args">The <see cref="ProcessEventArgs"/> instance containing the event data.</param>
         private void FireProcessInputEvent(ProcessEventArgs args)
         {
-            //  Get the event.
-            var theEvent = OnProcessInput;
-            if (theEvent != null)
-                theEvent(this, args);
+            //  Fire the event if it is set.
+            OnProcessInput?.Invoke(this, args);
         }
 
         /// <summary>
@@ -325,10 +321,10 @@ namespace ConsoleControl.WPF
         /// </value>
         public bool ShowDiagnostics
         {
-          get { return (bool)GetValue(ShowDiagnosticsProperty); }
-          set { SetValue(ShowDiagnosticsProperty, value); }
+            get => (bool)GetValue(ShowDiagnosticsProperty);
+            set => SetValue(ShowDiagnosticsProperty, value);
         }
-        
+
         private static void OnShowDiagnosticsChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
         {
         }

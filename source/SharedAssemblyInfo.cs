@@ -1,10 +1,8 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("Dave Kerr")]
 [assembly: AssemblyProduct("ConsoleControl")]
-[assembly: AssemblyCopyright("Copyright © Dave Kerr 2013-2019. http://www.dwmkerr.com")]
+[assembly: AssemblyCopyright("Copyright © Dave Kerr 2013-2019. https://www.dwmkerr.com")]
 
 // Version information for an assembly consists of the following four values:
 //

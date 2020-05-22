@@ -6,6 +6,15 @@ ConsoleControl is a C# class library that lets you embed a console in a WinForms
 
 ![ConsoleControl Screenshot](./docs/screenshot.png "ConsoleControl Screenshot")
 
+<!-- vim-markdown-toc GFM -->
+
+* [Installing](#installing)
+* [Using ConsoleControl](#using-consolecontrol)
+* [Developer Guide](#developer-guide)
+    * [Creating a Release](#creating-a-release)
+
+<!-- vim-markdown-toc -->
+
 ## Installing
 
 Installing couldn't be easier, just use NuGet. You can search for 'ConsoleControl' or install directly.

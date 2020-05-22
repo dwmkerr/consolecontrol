@@ -1,6 +1,6 @@
 # ConsoleControl
 
-[![Build status](https://ci.appveyor.com/api/projects/status/8i3y31o3j6aomjim?svg=true)](https://ci.appveyor.com/project/dwmkerr/consolecontrol) [![GuardRails badge](https://badges.production.guardrails.io/dwmkerr/consolecontrol.svg)](https://www.guardrails.io)
+[![Build status](https://ci.appveyor.com/api/projects/status/8i3y31o3j6aomjim?svg=true)](https://ci.appveyor.com/project/dwmkerr/consolecontrol) [![GuardRails badge](https://badges.guardrails.io/dwmkerr/consolecontrol.svg?token=569f2cc38a148f785f3a38ef0bcf5f5964995d7ca625abfad9956b14bd06ad96&provider=github)](https://dashboard.guardrails.io/gh/dwmkerr/16697)
 
 ConsoleControl is a C# class library that lets you embed a console in a WinForms or WPF application. This console can be used for input and output for a process. It's great for making tools and utilities.
 

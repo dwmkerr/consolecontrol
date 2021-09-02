@@ -1,5 +1,5 @@
 # Run msbuild on the solution, in release mode.
-$msbuild ="${env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe"
+$msbuild ="${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"
 $args = "ConsoleControl.sln /t:Rebuild /p:Configuration=Release"
 
 # Run the command.

@@ -147,12 +147,12 @@ namespace ConsoleControl
                                select k;
 
                 //  Go through each mapping, send the message.
-                foreach (var mapping in mappings)
-                {
+                //foreach (var mapping in mappings)
+                //{
                     //SendKeysEx.SendKeys(CurrentProcessHwnd, mapping.SendKeysMapping);
                     //inputWriter.WriteLine(mapping.StreamMapping);
 //WriteInput("\x3", Color.White, false);
-                }
+                //}
 
                 //  If we handled a mapping, we're done here.
                 if (mappings.Any())
@@ -438,7 +438,7 @@ namespace ConsoleControl
         /// Gets the process interface.
         /// </summary>
         [Browsable(false)]
-        public ConsoleControlAPI.ProcessInterface ProcessInterface
+        public ProcessInterface ProcessInterface
         {
             get { return processInterace; }
         }

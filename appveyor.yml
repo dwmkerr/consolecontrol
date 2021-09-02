@@ -7,6 +7,9 @@ build:
   publish_nuget: true
   verbosity: minimal
 
+before_build:
+- appveyor-retry nuget restore source\ConsoleControl.sln
+
 # Deploy to Nuget and GitHub Releases.
 deploy:
 - provider: NuGet

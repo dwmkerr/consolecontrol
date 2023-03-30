@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;net40</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net7.0-windows;net46</TargetFrameworks>
     <OutputType>Library</OutputType>
     <PublishUrl>publish\</PublishUrl>
     <MapFileExtensions>true</MapFileExtensions>
